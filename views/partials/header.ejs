@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title><%= title %> · Bincom</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="/">Bincom Election Results</a>
+      <nav>
+        <a href="/polling-units">Polling unit</a>
+        <a href="/lga-results">LGA totals</a>
+        <a class="button small" href="/polling-units/new">Add results</a>
+      </nav>
+    </div>
+  </header>
+  <main class="container"><%- body %></main>
+</body>
+</html>

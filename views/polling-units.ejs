@@ -1,0 +1,20 @@
+<%- include('partials/header', { title }) %>
+<h1>Polling unit results</h1>
+<p class="muted">Only polling units associated with Delta State LGAs are listed.</p>
+<form class="toolbar" method="get" action="/polling-units">
+  <label for="unit">Polling unit</label>
+  <select id="unit" onchange="if(this.value) window.location=this.value">
+    <option value="">Select a polling unit</option>
+    <% units.forEach(function(item) { %>
+      <option value="/polling-units/<%= item.uniqueid %>" <%= selected === item.uniqueid ? 'selected' : '' %>><%= item.uniqueid %> · <%= item.polling_unit_name || 'Unnamed unit' %> · <%= item.lga_name %></option>
+    <% }) %>
+  </select>
+</form>
+<% if (unit) { %>
+<section class="panel">
+  <h2><%= unit.polling_unit_name || 'Unnamed polling unit' %></h2>
+  <p class="muted">Unique ID: <%= unit.uniqueid %> · LGA: <%= unit.lga_name %> · Ward: <%= unit.ward_name || 'Not linked' %></p>
+  <% if (results.length) { %><%- include('results-table', { results }) %><% } else { %><p>No result rows have been recorded for this polling unit.</p><% } %>
+</section>
+<% } %>
+</main></body></html>

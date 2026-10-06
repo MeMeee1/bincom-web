@@ -1,0 +1,13 @@
+<%- include('partials/header', { title }) %>
+<h1>LGA result totals</h1>
+<p class="muted">Totals are calculated from <code>polling_unit</code> and <code>announced_pu_results</code>; announced LGA results are not used.</p>
+<form class="toolbar" method="get" action="/lga-results">
+  <label for="lga_id">Local government area</label>
+  <select id="lga_id" name="lga_id" onchange="this.form.submit()"><option value="">Select an LGA</option>
+    <% lgas.forEach(function(lga) { %><option value="<%= lga.lga_id %>" <%= selected === lga.lga_id ? 'selected' : '' %>><%= lga.lga_name %></option><% }) %>
+  </select>
+</form>
+<% if (selectedLga) { %><section class="panel"><h2><%= selectedLga.lga_name %></h2>
+<% if (results.length) { %><table><thead><tr><th>Party</th><th>Total score</th><th>Polling units represented</th></tr></thead><tbody><% results.forEach(function(row) { %><tr><td><%= row.party_abbreviation %></td><td><%= row.party_score %></td><td><%= row.polling_units_count %></td></tr><% }) %></tbody></table><% } else { %><p>No polling-unit results are available for this LGA.</p><% } %>
+</section><% } %>
+</main></body></html>

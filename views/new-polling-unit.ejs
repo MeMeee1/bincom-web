@@ -1,0 +1,15 @@
+<%- include('partials/header', { title }) %>
+<h1>Add a polling unit and results</h1>
+<p class="muted">This form stores the polling unit and one result row for every party in a database transaction.</p>
+<% if (error) { %><div class="alert"><%= error %></div><% } %>
+<form class="form-grid" method="post" action="/polling-units">
+  <label>Polling unit ID<input name="polling_unit_id" type="number" min="0" required value="<%= form.polling_unit_id || '' %>"></label>
+  <label>Ward ID<input name="ward_id" type="number" min="0" required value="<%= form.ward_id || '' %>"></label>
+  <label>LGA<select name="lga_id" required><option value="">Select an LGA</option><% lgas.forEach(function(lga) { %><option value="<%= lga.lga_id %>" <%= String(form.lga_id) === String(lga.lga_id) ? 'selected' : '' %>><%= lga.lga_name %></option><% }) %></select></label>
+  <label>Polling unit number<input name="polling_unit_number" value="<%= form.polling_unit_number || '' %>"></label>
+  <label class="wide">Polling unit name<input name="polling_unit_name" required value="<%= form.polling_unit_name || '' %>"></label>
+  <label class="wide">Description<textarea name="polling_unit_description"><%= form.polling_unit_description || '' %></textarea></label>
+  <fieldset class="wide"><legend>Party scores</legend><div class="score-grid"><% parties.forEach(function(party) { %><label><%= party.partyname %><input name="score_<%= party.partyid %>" type="number" min="0" required value="<%= form['score_' + party.partyid] || 0 %>"></label><% }) %></div></fieldset>
+  <button class="button" type="submit">Save polling unit and results</button>
+</form>
+</main></body></html>
